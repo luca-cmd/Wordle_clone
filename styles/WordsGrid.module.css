@@ -1,0 +1,28 @@
+.grid {
+  display: grid;
+  grid-template-rows: auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 6px;
+}
+
+.item {
+  background: #121213;
+  border: 2px solid #3a3a3c;
+  height: 56px;
+  width: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.itemCompleted {
+  background: #3a3a3c;
+  border: 2px solid #3a3a3c;
+  height: 56px;
+  width: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
