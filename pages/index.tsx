@@ -2,11 +2,11 @@ import type { NextPage } from 'next';
 import styles from '../styles/Home.module.css';
 import NavBar from './components/NavBar/Main';
 import Grid from './components/Words_Grid/Main';
-import { useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 const Home: NextPage = () => {
   const [highlightingChar, setHighlightingChar] = useState<string[][]>(
-    Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => 'grey'))
+    Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => 'null'))
   );
   const [focusChar, setFocusChar] = useState<number>(0);
   const [focusRow, setFocusRow] = useState<number>(0);
@@ -22,6 +22,10 @@ const Home: NextPage = () => {
     ['', '', '', '', ''],
   ]);
 
+  useEffect(() => {
+    console.log(line, highlightingChar, word);
+  }, [line, highlightingChar, word]);
+
   const handleKeyDown = useCallback(
     (event) => {
       const copy = [...grid];
@@ -33,10 +37,7 @@ const Home: NextPage = () => {
         copy[focusRow][focusChar] = event.key.toUpperCase();
         setFocusChar(focusChar + 1);
         setLine([...line, event.key.toUpperCase()]);
-      } else if (event.key === 'Backspace' && focusChar > -1) {
-        if (focusChar < 0) {
-          copy[focusRow][focusChar] = '';
-        }
+      } else if (event.key === 'Backspace' && focusChar > 0) {
         copy[focusRow][focusChar - 1] = '';
         setFocusChar(focusChar - 1);
         let newLine = [...line];
@@ -56,14 +57,16 @@ const Home: NextPage = () => {
             } else {
               hightlight_copy[focusRow][i] = 'orange';
             }
+          } else {
+            hightlight_copy[focusRow][i] = 'grey';
           }
         });
         setHighlightingChar(highlightingChar);
         setFocusRow(focusRow + 1);
+        setLine([]);
         setFocusChar(0);
       }
       setGrid(copy);
-      console.log(focusChar);
     },
     [grid, focusChar, focusRow, letters, highlightingChar, line, word]
   );

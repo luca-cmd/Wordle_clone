@@ -8,6 +8,18 @@ interface Props {
 
 const Grid: React.FC<Props> = (props) => {
   const { grid, highlightingChar } = props;
+
+  const getClassName = (a: string) => {
+    switch (a) {
+      case 'green':
+        return styles.itemGreen;
+      case 'orange':
+        return styles.itemOrange;
+      default:
+        return styles.itemGray;
+    }
+  };
+
   return (
     <div className={styles.grid}>
       {grid.map((row, j) => {
@@ -15,9 +27,9 @@ const Grid: React.FC<Props> = (props) => {
           <div
             key={i}
             className={
-              highlightingChar[j][i] === 'grey'
+              highlightingChar[j][i] === 'null'
                 ? styles.item
-                : styles.itemCompleted
+                : getClassName(highlightingChar[j][i])
             }
           >
             {item}

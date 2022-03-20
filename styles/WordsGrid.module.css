@@ -16,9 +16,31 @@
   font-size: 2rem;
 }
 
-.itemCompleted {
+.itemGray {
   background: #3a3a3c;
   border: 2px solid #3a3a3c;
+  height: 56px;
+  width: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.itemGreen {
+  background: #538d4e;
+  border: 2px solid #538d4c;
+  height: 56px;
+  width: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.itemOrange {
+  background: #b59f3b;
+  border: 2px solid #b59f3b;
   height: 56px;
   width: 56px;
   display: flex;
