@@ -10,21 +10,15 @@ const Home: NextPage = () => {
   );
   const [focusChar, setFocusChar] = useState<number>(0);
   const [focusRow, setFocusRow] = useState<number>(0);
-  const [line, setLine] = useState<string[]>([]);
   const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM'.split('');
   const word = 'WORDS'.split('');
-  const [grid, setGrid] = useState<string[][]>([
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-  ]);
+  const [grid, setGrid] = useState<string[][]>(
+    Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => ''))
+  );
 
   useEffect(() => {
-    console.log(line, highlightingChar, word);
-  }, [line, highlightingChar, word]);
+    console.log(highlightingChar, word);
+  }, [highlightingChar, word]);
 
   const handleKeyDown = useCallback(
     (event) => {
@@ -36,16 +30,12 @@ const Home: NextPage = () => {
       ) {
         copy[focusRow][focusChar] = event.key.toUpperCase();
         setFocusChar(focusChar + 1);
-        setLine([...line, event.key.toUpperCase()]);
       } else if (event.key === 'Backspace' && focusChar > 0) {
         copy[focusRow][focusChar - 1] = '';
         setFocusChar(focusChar - 1);
-        let newLine = [...line];
-        newLine.pop();
-        setLine(newLine);
       } else if (event.key === 'Enter' && focusChar === 5 && focusRow !== 6) {
         let hightlight_copy = [...highlightingChar];
-        line.forEach((char, i) => {
+        grid[focusRow].forEach((char, i) => {
           let index = 0;
           let exist = word.some((c) => {
             index = word.indexOf(c);
@@ -63,12 +53,11 @@ const Home: NextPage = () => {
         });
         setHighlightingChar(highlightingChar);
         setFocusRow(focusRow + 1);
-        setLine([]);
         setFocusChar(0);
       }
       setGrid(copy);
     },
-    [grid, focusChar, focusRow, letters, highlightingChar, line, word]
+    [grid, focusChar, focusRow, letters, highlightingChar, word]
   );
 
   return (

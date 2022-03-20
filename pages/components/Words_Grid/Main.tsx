@@ -1,4 +1,3 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
 import styles from '../../../styles/WordsGrid.module.css';
 
 interface Props {
